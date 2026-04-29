@@ -31,7 +31,7 @@ class CatalogView(TemplateView):
         'color': lambda queryset, value: queryset.filter(color__iexact=value),
         'min_price': lambda queryset, value: queryset.filter(price__gte=value),
         'max_price': lambda queryset, value: queryset.filter(price__lte=value),
-        'size': lambda queryset, value: queryset.filter(product_size__size__name=value),
+        'size': lambda queryset, value: queryset.filter(product_sizes__size__name=value),
     }
 
 
