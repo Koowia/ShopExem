@@ -12,6 +12,7 @@ class ProductSizeInline(admin.TabularInline):
     extra = 1
 
 
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'category', 'color', 'price']
     list_filter = ['category', 'color']
@@ -20,16 +21,12 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline, ProductSizeInline]
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
     prepopulated_fields = {'slug': ('name',)}
 
 
+@admin.register(Size)
 class SizeAdmin(admin.ModelAdmin):
     list_display = ['name']
-
-
-
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Size, SizeAdmin)
-admin.site.register(Product, ProductAdmin)
