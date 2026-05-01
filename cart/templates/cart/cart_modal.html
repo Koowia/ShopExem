@@ -90,17 +90,8 @@
     // Trigger open animation when modal is loaded via HTMX
     document.addEventListener('htmx:afterSwap', function(evt) {
         console.log('HTMX afterSwap event triggered', evt.detail.elt.id);
-        if (evt.detail.elt.id === 'cart-modal') {
+        if (evt.detail.elt.id === 'cart-container') {
             console.log('Cart modal loaded, triggering open animation');
-            openCart();
-        }
-    });
-
-    // Fallback: Try opening cart on DOMContentLoaded if modal exists
-    document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('cart-modal');
-        if (modal) {
-            console.log('Cart modal found on DOMContentLoaded, triggering open animation');
             openCart();
         }
     });
