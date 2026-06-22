@@ -16,10 +16,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'kwdev.ru', 'www.kwdev.ru']
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://127.0.0.1:8000'
-    'http://localhost:8000'
-    'http://kwdev.ru'
-    'http://www.kwdev.ru'
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
+    'http://kwdev.ru',
+    'http://www.kwdev.ru',
 ]
 
 CSRF_COOKIE_SECURE = True
