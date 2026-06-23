@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap');
         
         body {
             font-family: 'Inter', sans-serif;
@@ -108,7 +108,7 @@
         }
     </style>
 </head>
-<body class="bg-white">
+<body class="bg-white" style="display: flex; flex-direction: column; min-height: 100vh;">
     <!-- Mobile Menu Overlay -->
     <div id="overlay" class="overlay fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"></div>
     
@@ -231,7 +231,7 @@
     <div class="htmx-indicator fixed top-0 left-0 w-full h-1 bg-black z-50"></div>
 
     <!-- Main Content -->
-    <div id="main-content">
+    <div id="main-content" style="flex: 1;">
         {% block content %}
         <!-- Default home content -->
         <main class="mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -257,6 +257,53 @@
         </main>
         {% endblock %}
     </div>
+
+    <!-- Footer -->
+    <footer style="background-color: #0a0a0a; font-family: 'Playfair Display', Georgia, serif;">
+        <div class="mx-auto px-6 sm:px-10 lg:px-16 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+                <!-- Brand -->
+                <div>
+                    <h2 style="color: #f5f5f5; font-size: 1.1rem; letter-spacing: 0.18em; font-weight: 500;" class="mb-5 uppercase">
+                        ENFANTS RICHES<br>DÉPRIMÉS
+                    </h2>
+                    <p style="color: #888; font-family: 'Inter', sans-serif; font-size: 0.8rem; line-height: 1.8; letter-spacing: 0.04em;">
+                        Мы - магазин брендовой одежды для тех, кто ценит стиль, качество и смелые высказывания через моду. Каждая вещь в нашей коллекции - это не просто одежда, это позиция.
+                    </p>
+                </div>
+
+                <!-- Contacts -->
+                <div style="display: flex; justify-content: flex-end;">
+                    <div style="display: inline-flex; flex-direction: column; align-items: center;">
+                        <h3 style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.22em; font-family: 'Inter', sans-serif; font-weight: 600; white-space: nowrap;" class="mb-5 uppercase">
+                            Контакты поддержки
+                        </h3>
+                        <div style="font-family: 'Inter', sans-serif; text-align: center;">
+                            <p style="color: #555; font-size: 0.72rem; letter-spacing: 0.06em;" class="mb-2 uppercase">Email</p>
+                            <a href="mailto:support@kwdev.ru"
+                               style="color: #c9a96e; font-size: 0.85rem; letter-spacing: 0.06em; text-decoration: none; transition: color 0.2s;"
+                               onmouseover="this.style.color='#e8c98e'" onmouseout="this.style.color='#c9a96e'">
+                                support@kwdev.ru
+                            </a>
+                            <p style="color: #555; font-size: 0.72rem; letter-spacing: 0.06em; margin-top: 1.5rem;" class="mb-2 uppercase">Режим работы</p>
+                            <p style="color: #888; font-size: 0.8rem; line-height: 1.8;">
+                                Пн - Пт: 10:00 - 20:00<br>
+                                Сб - Вс: 11:00 - 18:00
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div style="border-top: 1px solid #1f1f1f; margin-top: 3rem; padding-top: 2rem;">
+                <p style="color: #3a3a3a; font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em;">
+                    &copy; {% now "Y" %} ENFANTS RICHES DÉPRIMÉS. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
+                </p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
