@@ -13,6 +13,7 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+        context['featured_products'] = Product.objects.all().order_by('-created_at')[:4]
         context['current_category'] = None
         return context
 

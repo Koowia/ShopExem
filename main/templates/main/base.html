@@ -106,6 +106,34 @@
         .htmx-request.htmx-indicator {
             opacity: 1;
         }
+
+        .category-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem 2rem;
+            background-color: #f5f5f5;
+            text-decoration: none;
+            min-height: 200px;
+            transition: background-color 0.3s;
+        }
+        .category-card:hover {
+            background-color: #0a0a0a;
+        }
+        .category-card:hover .category-name {
+            color: #f5f5f5;
+        }
+        .category-name {
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            color: #0a0a0a;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .product-featured-card:hover img {
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="bg-white" style="display: flex; flex-direction: column; min-height: 100vh;">
@@ -273,18 +301,62 @@
     <!-- Категории -->
     <section style="padding: 6rem 2rem; background-color: #f5f5f5;">
         <p style="text-align: center; font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 4rem; font-family: 'Inter', sans-serif;">КАТЕГОРИИ</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; max-width: 1200px; margin: 0 auto; background-color: #ddd;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; max-width: 1200px; margin: 0 auto; background-color: #e0e0e0;">
             {% for category in categories %}
             <a href="{% url 'main:catalog' category.slug %}"
                hx-get="{% url 'main:catalog' category.slug %}"
                hx-target="#main-content"
                hx-push-url="true"
-               style="display: flex; flex-direction: column; justify-content: flex-end; padding: 3rem 2rem; background-color: #f5f5f5; text-decoration: none; min-height: 200px; transition: background-color 0.3s;"
-               onmouseover="this.style.backgroundColor='#0a0a0a'; this.querySelector('span').style.color='#f5f5f5';"
-               onmouseout="this.style.backgroundColor='#f5f5f5'; this.querySelector('span').style.color='#0a0a0a';">
-                <span style="font-size: 0.75rem; letter-spacing: 0.25em; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 500; transition: color 0.3s;">{{ category.name|upper }}</span>
+               class="category-card">
+                <span class="category-name">{{ category.name|upper }}</span>
             </a>
             {% endfor %}
+        </div>
+    </section>
+
+    <section style="padding: 5rem 2rem; background-color: #f5f5f5;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;">
+                <div>
+                    <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">НОВИНКИ</p>
+                    <h2 style="font-size: 1.5rem; font-weight: 700; color: #0a0a0a; font-family: 'Inter', sans-serif; letter-spacing: -0.02em;">NEW ARRIVALS</h2>
+                </div>
+                <a href="{% url 'main:catalog_all' %}"
+                   hx-get="{% url 'main:catalog_all' %}"
+                   hx-target="#main-content"
+                   hx-push-url="true"
+                   style="font-size: 0.7rem; letter-spacing: 0.2em; color: #999; text-decoration: none; font-family: 'Inter', sans-serif; border-bottom: 1px solid #ddd; padding-bottom: 2px;">
+                    ВСЕ ТОВАРЫ →
+                </a>
+            </div>
+            <div id="featured-scroll" style="display: flex; overflow-x: auto; gap: 1.5rem; padding-bottom: 1rem; scrollbar-width: none; -ms-overflow-style: none;">
+            <style>#featured-scroll::-webkit-scrollbar { display: none; }</style>
+                {% for product in featured_products %}
+                <div class="product-featured-card"
+                     hx-get="{% url 'main:product_detail' product.slug %}"
+                     hx-target="#main-content"
+                     hx-push-url="true"
+                     style="cursor: pointer; background-color: #fff; border: 1px solid #eee; min-width: 300px; flex-shrink: 0;">
+                    <div style="height: 300px; overflow: hidden; background-color: #f5f5f5;">
+                        {% if product.main_image %}
+                        <img src="{{ product.main_image.url }}"
+                             alt="{{ product.name }}"
+                             style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
+                        {% else %}
+                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: #aaa; font-size: 0.75rem; font-family: 'Inter', sans-serif; letter-spacing: 0.1em;">NO IMAGE</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div style="padding: 1.25rem; display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div>
+                            <p style="font-size: 0.72rem; letter-spacing: 0.12em; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 0.3rem;">{{ product.name|upper }}</p>
+                            <p style="font-size: 0.8rem; color: #666; font-family: 'Inter', sans-serif;">${{ product.price }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </section>
 
@@ -341,11 +413,6 @@
                                onmouseover="this.style.color='#e8c98e'" onmouseout="this.style.color='#c9a96e'">
                                 support@kwdev.ru
                             </a>
-                            <p style="color: #555; font-size: 0.72rem; letter-spacing: 0.06em; margin-top: 1.5rem;" class="mb-2 uppercase">Режим работы</p>
-                            <p style="color: #888; font-size: 0.8rem; line-height: 1.8;">
-                                Пн - Пт: 10:00 - 20:00<br>
-                                Сб - Вс: 11:00 - 18:00
-                            </p>
                         </div>
                     </div>
                 </div>
