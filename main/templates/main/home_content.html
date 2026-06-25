@@ -35,21 +35,6 @@
         </div>
     </div>
 
-    <!-- Категории -->
-    <section style="padding: 6rem 2rem; background-color: #f5f5f5;">
-        <p style="text-align: center; font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 4rem; font-family: 'Inter', sans-serif;">КАТЕГОРИИ</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; max-width: 1200px; margin: 0 auto; background-color: #e0e0e0;">
-            {% for category in categories %}
-            <a href="{% url 'main:catalog' category.slug %}"
-               hx-get="{% url 'main:catalog' category.slug %}"
-               hx-target="#main-content"
-               hx-push-url="true"
-               class="category-card">
-                <span class="category-name">{{ category.name|upper }}</span>
-            </a>
-            {% endfor %}
-        </div>
-    </section>
 
     <section style="padding: 5rem 2rem; background-color: #f5f5f5;">
         <div style="max-width: 1200px; margin: 0 auto;">
