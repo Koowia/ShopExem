@@ -1,7 +1,7 @@
-<button id="search-toggle" 
-        hx-get="{% url 'main:catalog_all' %}?show_search=true" 
-        hx-target="#search-wrapper, #mobile-search-wrapper" 
+<button id="mobile-search-toggle"
+        hx-get="{% url 'main:catalog_all' %}?show_search=true"
+        hx-target="#mobile-search-wrapper"
         hx-swap="innerHTML"
-        class="text-sm font-medium uppercase hover:text-gray-600">
-    SEARCH
+        class="flex items-center hover:opacity-60 transition-opacity">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
 </button>
