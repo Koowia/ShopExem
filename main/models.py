@@ -44,6 +44,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(blank=True)
     main_image = models.ImageField(upload_to='products/main/')
+    is_featured = models.BooleanField(default=False, verbose_name='Показывать на главной')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

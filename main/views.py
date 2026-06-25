@@ -13,7 +13,7 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
-        context['featured_products'] = Product.objects.all().order_by('-created_at')[:4]
+        context['featured_products'] = Product.objects.filter(is_featured=True).order_by('-created_at')
         context['current_category'] = None
         return context
 
@@ -22,6 +22,22 @@ class IndexView(TemplateView):
         context = self.get_context_data(**kwargs)
         if request.headers.get('HX-Request'):
             return TemplateResponse(request, 'main/home_content.html', context)
+        return TemplateResponse(request, self.template_name, context)
+
+
+class CatalogIndexView(TemplateView):
+    template_name = 'main/base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        context['current_category'] = None
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        if request.headers.get('HX-Request'):
+            return TemplateResponse(request, 'main/catalog_index.html', context)
         return TemplateResponse(request, self.template_name, context)
 
 
@@ -81,13 +97,18 @@ class CatalogView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
+        category_slug = kwargs.get('category_slug')
         if request.headers.get('HX-Request'):
             if context.get('show_search'):
                 return TemplateResponse(request, 'main/search_input.html', context)
             elif context.get('reset_search'):
                 return TemplateResponse(request, 'main/search_button.html', {})
+            if not category_slug and not request.GET.get('q') and not any([request.GET.get('color'), request.GET.get('min_price'), request.GET.get('max_price'), request.GET.get('size')]):
+                return TemplateResponse(request, 'main/catalog_index.html', context)
             template = 'main/filter_modal.html' if request.GET.get('show_filters') == 'true' else 'main/catalog.html'
             return TemplateResponse(request, template, context)
+        if not category_slug and not request.GET.get('q') and not any([request.GET.get('color'), request.GET.get('min_price'), request.GET.get('max_price'), request.GET.get('size')]):
+            return TemplateResponse(request, self.template_name, {'categories': context['categories'], 'current_category': None, 'show_catalog_index': True})
         return TemplateResponse(request, self.template_name, context)
 
 

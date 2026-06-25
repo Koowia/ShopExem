@@ -162,8 +162,8 @@
                    class="mobile-nav-link block text-lg font-medium text-white hover:text-gray-700 py-2 border-b border-gray-800">
                    HOME
                 </a>
-                <a href="{% url 'main:catalog_all' %}"
-                   hx-get="{% url 'main:catalog_all' %}"
+                <a href="{% url 'main:catalog_index' %}"
+                   hx-get="{% url 'main:catalog_index' %}"
                    hx-target="#main-content"
                    hx-push-url="true"
                    class="mobile-nav-link block text-lg font-medium text-white hover:text-gray-400 py-2 border-b border-gray-800">
@@ -210,8 +210,8 @@
                 
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8">
-                    <a href="{% url 'main:catalog_all' %}"
-                       hx-get="{% url 'main:catalog_all' %}"
+                    <a href="{% url 'main:catalog_index' %}"
+                       hx-get="{% url 'main:catalog_index' %}"
                        hx-target="#main-content"
                        hx-push-url="true"
                        class="nav-link text-white text-xs tracking-widest uppercase hover:opacity-60 transition-opacity">
@@ -257,6 +257,9 @@
     <!-- Main Content -->
     <div id="main-content" style="flex: 1;">
         {% block content %}
+        {% if show_catalog_index %}
+            {% include 'main/catalog_index.html' %}
+        {% endif %}
         <main style="background-color: #f5f5f5;">
     <section style="min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 4rem 2rem; background-color: #f5f5f5;">
         <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 2rem; font-family: 'Inter', sans-serif;">NEW COLLECTION — 2026</p>
@@ -302,8 +305,8 @@
                     <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">НОВИНКИ</p>
                     <h2 style="font-size: 1.5rem; font-weight: 700; color: #0a0a0a; font-family: 'Inter', sans-serif; letter-spacing: -0.02em;">NEW ARRIVALS</h2>
                 </div>
-                <a href="{% url 'main:catalog_all' %}"
-                   hx-get="{% url 'main:catalog_all' %}"
+                <a href="{% url 'main:catalog_index' %}"
+                   hx-get="{% url 'main:catalog_index' %}"
                    hx-target="#main-content"
                    hx-push-url="true"
                    style="font-size: 0.7rem; letter-spacing: 0.2em; color: #999; text-decoration: none; font-family: 'Inter', sans-serif; border-bottom: 1px solid #ddd; padding-bottom: 2px;">
@@ -318,7 +321,7 @@
                      hx-target="#main-content"
                      hx-push-url="true"
                      style="cursor: pointer; background-color: #fff; border: 1px solid #eee; min-width: 300px; flex-shrink: 0;">
-                    <div style="height: 300px; overflow: hidden; background-color: #f5f5f5;">
+                    <div style="height: 380px; overflow: hidden; background-color: #f5f5f5;">
                         {% if product.main_image %}
                         <img src="{{ product.main_image.url }}"
                              alt="{{ product.name }}"
@@ -331,8 +334,9 @@
                     </div>
                     <div style="padding: 1.25rem; display: flex; justify-content: space-between; align-items: flex-end;">
                         <div>
-                            <p style="font-size: 0.72rem; letter-spacing: 0.12em; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 0.3rem;">{{ product.name|upper }}</p>
-                            <p style="font-size: 0.8rem; color: #666; font-family: 'Inter', sans-serif;">${{ product.price }}</p>
+                            <p style="font-size: 0.72rem; letter-spacing: 0.12em; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 0.25rem;">{{ product.name|upper }}</p>
+                            <p style="font-size: 0.65rem; letter-spacing: 0.15em; color: #aaa; font-family: 'Inter', sans-serif; margin-bottom: 0.5rem;">{{ product.category.name|upper }}</p>
+                            <p style="font-size: 0.8rem; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 500;">${{ product.price }}</p>
                         </div>
                     </div>
                 </div>
