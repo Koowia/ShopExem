@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, DetailView
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template.response import TemplateResponse
 from .models import Category, Product, Size
 from django.db.models import Q
@@ -65,7 +65,7 @@ class CatalogView(TemplateView):
 
         query = self.request.GET.get('q')
         if query:
-            products = products.filter(Q(name__icontains=query) | Q(description__icontains=query))
+            products = products.filter(Q(name__icontains=query))
 
         filter_params = {}
         for param, filter_func in self.FILTER_MAPPING.items():
@@ -136,3 +136,13 @@ class ProductDetailView(DetailView):
         if request.headers.get('HX-Request'):
             return TemplateResponse(request, 'main/product_detail.html', context)
         return TemplateResponse(request, self.template_name, context)
+
+
+def search_suggestions(request):
+    query = request.GET.get('q', '').strip()
+    if len(query) < 2:
+        return JsonResponse({'results': []})
+    products = Product.objects.filter(
+        name__icontains=query
+    ).values_list('name', flat=True)[:6]
+    return JsonResponse({'results': list(products)})

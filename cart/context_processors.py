@@ -11,5 +11,6 @@ def cart_processor(request):
 
     return {
         'cart_total_items': cart.total_items,
+        'cart_count': cart.total_items,
         'cart_subtotal': cart.subtotal,
     }
