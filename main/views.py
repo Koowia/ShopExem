@@ -108,7 +108,7 @@ class CatalogView(TemplateView):
             template = 'main/filter_modal.html' if request.GET.get('show_filters') == 'true' else 'main/catalog.html'
             return TemplateResponse(request, template, context)
         if not category_slug and not request.GET.get('q') and not any([request.GET.get('color'), request.GET.get('min_price'), request.GET.get('max_price'), request.GET.get('size')]):
-            return TemplateResponse(request, self.template_name, {'categories': context['categories'], 'current_category': None, 'show_catalog_index': True})
+            return TemplateResponse(request, 'main/base.html', {'categories': context['categories'], 'current_category': None, 'show_catalog_index': True})
         return TemplateResponse(request, self.template_name, context)
 
 

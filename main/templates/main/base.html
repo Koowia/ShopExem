@@ -9,10 +9,14 @@
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
         
         body {
             font-family: 'Inter', sans-serif;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
         }
         
         .product-image {
@@ -186,7 +190,7 @@
     </div>
 
     <!-- Header -->
-    <header class="sticky top-0 bg-[#0a0a0a] border-b border-gray-800">
+    <header class="sticky top-0 z-50 bg-[#0a0a0a] border-b border-gray-800">
         <div class="mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Mobile Menu Button -->
@@ -255,7 +259,7 @@
     <div class="htmx-indicator fixed top-0 left-0 w-full h-1 bg-black z-50"></div>
 
     <!-- Main Content -->
-    <div id="main-content" style="flex: 1;">
+    <div id="main-content" style="flex: 1; padding-top: 0;">
         {% block content %}
         {% if show_catalog_index %}
             {% include 'main/catalog_index.html' %}
@@ -265,14 +269,6 @@
         <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 2rem; font-family: 'Inter', sans-serif;">NEW COLLECTION — 2026</p>
         <h1 style="font-size: clamp(3rem, 10vw, 8rem); font-weight: 700; letter-spacing: -0.02em; color: #0a0a0a; line-height: 1; margin-bottom: 1.5rem; font-family: 'Inter', sans-serif;">ANIMA<br>NOCTIS</h1>
         <p style="font-size: 0.85rem; letter-spacing: 0.15em; color: #666; margin-bottom: 3rem; font-family: 'Inter', sans-serif; max-width: 400px;">ОДЕЖДА ДЛЯ ТЕХ, КТО СУЩЕСТВУЕТ ВНЕ ВРЕМЕНИ</p>
-        <a href="{% url 'main:catalog_all' %}"
-           hx-get="{% url 'main:catalog_all' %}"
-           hx-target="#main-content"
-           hx-push-url="true"
-           style="display: inline-block; background-color: #0a0a0a; color: #f5f5f5; padding: 1rem 3rem; font-size: 0.75rem; letter-spacing: 0.2em; text-decoration: none; font-family: 'Inter', sans-serif; transition: opacity 0.3s;"
-           onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-            СМОТРЕТЬ КОЛЛЕКЦИЮ
-        </a>
     </section>
 
     <!-- Бегущая строка -->
@@ -305,13 +301,6 @@
                     <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">НОВИНКИ</p>
                     <h2 style="font-size: 1.5rem; font-weight: 700; color: #0a0a0a; font-family: 'Inter', sans-serif; letter-spacing: -0.02em;">NEW ARRIVALS</h2>
                 </div>
-                <a href="{% url 'main:catalog_index' %}"
-                   hx-get="{% url 'main:catalog_index' %}"
-                   hx-target="#main-content"
-                   hx-push-url="true"
-                   style="font-size: 0.7rem; letter-spacing: 0.2em; color: #999; text-decoration: none; font-family: 'Inter', sans-serif; border-bottom: 1px solid #ddd; padding-bottom: 2px;">
-                    ВСЕ ТОВАРЫ →
-                </a>
             </div>
             <div id="featured-scroll" style="display: flex; overflow-x: auto; gap: 1.5rem; padding-bottom: 1rem; scrollbar-width: none; -ms-overflow-style: none;">
             <style>#featured-scroll::-webkit-scrollbar { display: none; }</style>
@@ -344,21 +333,6 @@
             </div>
         </div>
     </section>
-
-    <!-- О бренде -->
-    <section style="padding: 6rem 2rem; background-color: #0a0a0a; text-align: center;">
-        <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: #555; margin-bottom: 2rem; font-family: 'Inter', sans-serif;">О БРЕНДЕ</p>
-        <h2 style="font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 300; letter-spacing: 0.1em; color: #f5f5f5; margin-bottom: 2rem; font-family: 'Inter', sans-serif; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">ДУША НОЧИ — ЭТО НЕ ПРОСТО ОДЕЖДА. ЭТО ПОЗИЦИЯ.</h2>
-        <p style="font-size: 0.8rem; letter-spacing: 0.05em; color: #666; font-family: 'Inter', sans-serif; max-width: 500px; margin: 0 auto 3rem; line-height: 2;">Каждая вещь создана в ограниченном количестве. Без повторов. Без компромиссов.</p>
-        <a href="{% url 'main:catalog_all' %}"
-           hx-get="{% url 'main:catalog_all' %}"
-           hx-target="#main-content"
-           hx-push-url="true"
-           style="display: inline-block; border: 1px solid #333; color: #f5f5f5; padding: 1rem 3rem; font-size: 0.75rem; letter-spacing: 0.2em; text-decoration: none; font-family: 'Inter', sans-serif; transition: all 0.3s;"
-           onmouseover="this.style.borderColor='#f5f5f5'" onmouseout="this.style.borderColor='#333'">
-            ВСЕ ТОВАРЫ
-        </a>
-    </section>
 </main>
 
 <style>
@@ -371,46 +345,85 @@
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #0a0a0a; font-family: 'Playfair Display', Georgia, serif;">
-        <div class="mx-auto px-6 sm:px-10 lg:px-16 py-16">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <footer style="background-color: #0a0a0a; border-top: 1px solid #1a1a1a;">
 
-                <!-- Brand -->
-                <div>
-                    <h2 style="color: #f5f5f5; font-size: 1.1rem; letter-spacing: 0.18em; font-weight: 500;" class="mb-5 uppercase">
-                        ANIMA NOCTIS
-                    </h2>
-                    <p style="color: #888; font-family: 'Inter', sans-serif; font-size: 0.8rem; line-height: 1.8; letter-spacing: 0.04em;">
-                        Мы - магазин брендовой одежды для тех, кто ценит стиль, качество и смелые высказывания через моду. Каждая вещь в нашей коллекции - это не просто одежда, это позиция.
+    <!-- Верхняя большая строка -->
+    <div style="padding: 4rem 4rem 0; border-bottom: 1px solid #1a1a1a;">
+        <p style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(3rem, 6vw, 6rem); font-weight: 300; color: #f5f5f5; letter-spacing: 0.5em; line-height: 1; text-align: center; padding: 1rem 0;">A N I M A &nbsp; N O C T I S</p>
+    </div>
+
+    <!-- Основная сетка -->
+    <div style="padding: 4rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem; border-bottom: 1px solid #1a1a1a;">
+
+        <!-- Правовая информация — слева -->
+        <div>
+            <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; color: #f5f5f5; letter-spacing: 0.3em; font-weight: 700; margin-bottom: 2rem;">ПРАВОВАЯ ИНФОРМАЦИЯ</h3>
+            <nav style="display: flex; flex-direction: column; gap: 1.1rem;">
+                <a href="#"
+                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#444'">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+                <a href="#"
+                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#444'">ПУБЛИЧНАЯ ОФЕРТА</a>
+            </nav>
+        </div>
+
+        <!-- Навигация — по центру -->
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; color: #f5f5f5; letter-spacing: 0.3em; font-weight: 700; margin-bottom: 2rem;">НАВИГАЦИЯ</h3>
+            <nav style="display: flex; flex-direction: column; gap: 1.1rem; align-items: center;">
+                <a href="{% url 'main:index' %}"
+                   hx-get="{% url 'main:index' %}"
+                   hx-target="#main-content"
+                   hx-push-url="true"
+                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#444'">ГЛАВНАЯ</a>
+                <a href="{% url 'main:catalog_all' %}"
+                   hx-get="{% url 'main:catalog_all' %}"
+                   hx-target="#main-content"
+                   hx-push-url="true"
+                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#444'">КАТАЛОГ</a>
+                <a href="#"
+                   style="color: #222; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; cursor: default;">О БРЕНДЕ — СКОРО</a>
+                <a href="{% url 'users:profile' %}"
+                   hx-get="{% url 'users:profile' %}"
+                   hx-target="#main-content"
+                   hx-push-url="true"
+                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#444'">АККАУНТ</a>
+            </nav>
+        </div>
+
+        <!-- Служба поддержки — справа -->
+        <div style="display: flex; flex-direction: column; align-items: flex-end;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; color: #f5f5f5; letter-spacing: 0.3em; font-weight: 700; margin-bottom: 2rem;">СЛУЖБА ПОДДЕРЖКИ</h3>
+                <div style="display: flex; flex-direction: column; gap: 1.1rem; align-items: center;">
+                    <p style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.05em; line-height: 1.8; text-align: center;">
+                        Есть вопросы?<br>Мы всегда на связи.
                     </p>
+                    <a href="mailto:support@kwdev.ru"
+                       style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s; border-bottom: 1px solid #222; padding-bottom: 0.25rem; display: inline-block;"
+                       onmouseover="this.style.color='#f5f5f5'; this.style.borderColor='#f5f5f5'"
+                       onmouseout="this.style.color='#444'; this.style.borderColor='#222'">
+                        НАПИСАТЬ НАМ →
+                    </a>
                 </div>
-
-                <!-- Contacts -->
-                <div style="display: flex; justify-content: flex-end;">
-                    <div style="display: inline-flex; flex-direction: column; align-items: center;">
-                        <h3 style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.22em; font-family: 'Inter', sans-serif; font-weight: 600; white-space: nowrap;" class="mb-5 uppercase">
-                            Контакты поддержки
-                        </h3>
-                        <div style="font-family: 'Inter', sans-serif; text-align: center;">
-                            <p style="color: #555; font-size: 0.72rem; letter-spacing: 0.06em;" class="mb-2 uppercase">Email</p>
-                            <a href="mailto:support@kwdev.ru"
-                               style="color: #c9a96e; font-size: 0.85rem; letter-spacing: 0.06em; text-decoration: none; transition: color 0.2s;"
-                               onmouseover="this.style.color='#e8c98e'" onmouseout="this.style.color='#c9a96e'">
-                                support@kwdev.ru
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Divider -->
-            <div style="border-top: 1px solid #1f1f1f; margin-top: 3rem; padding-top: 2rem;">
-                <p style="color: #3a3a3a; font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em;">
-                    &copy; {% now "Y" %} ANIMA NOCTIS. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
-                </p>
             </div>
         </div>
-    </footer>
+    </div>
+
+    <!-- Нижняя строка -->
+    <div style="padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center;">
+        <p style="color: #222; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em;">
+            &copy; {% now "Y" %} ANIMA NOCTIS. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
+        </p>
+        <p style="color: #222; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em;">
+            ANIMA NOCTIS™
+        </p>
+    </div>
+</footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
