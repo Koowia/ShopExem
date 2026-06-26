@@ -17,3 +17,13 @@ def pluralize_ru(count, variants):
         return f"{count} {variants[1]}"
     else:
         return f"{count} {variants[2]}"
+
+
+@register.filter
+def format_price(value):
+    try:
+        value = int(value)
+        formatted = f"{value:,}".replace(",", " ")
+        return f"{formatted} ₽"
+    except (ValueError, TypeError):
+        return value

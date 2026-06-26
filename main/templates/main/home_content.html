@@ -1,77 +1,166 @@
+{% load main_tags %}
+{% load static %}
 <main style="background-color: #f5f5f5;">
-    <section style="min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 4rem 2rem; background-color: #f5f5f5;">
-        <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 2rem; font-family: 'Inter', sans-serif;">NEW COLLECTION — 2026</p>
-        <h1 style="font-size: clamp(3rem, 10vw, 8rem); font-weight: 700; letter-spacing: -0.02em; color: #0a0a0a; line-height: 1; margin-bottom: 1.5rem; font-family: 'Inter', sans-serif;">ANIMA<br>NOCTIS</h1>
-        <p style="font-size: 0.85rem; letter-spacing: 0.15em; color: #666; margin-bottom: 3rem; font-family: 'Inter', sans-serif; max-width: 400px;">ОДЕЖДА ДЛЯ ТЕХ, КТО СУЩЕСТВУЕТ ВНЕ ВРЕМЕНИ</p>
+
+    <!-- HERO -->
+    <section style="position: relative; min-height: 100vh; background-color: #0a0a0a; display: flex; flex-direction: column; justify-content: center; padding: 4rem 0 0 0; overflow: hidden;">
+
+        <!-- Оверлей -->
+        <div style="position: absolute; inset: 0; background: linear-gradient(to top, #0a0a0a 0%, rgba(10,10,10,0.5) 50%, rgba(10,10,10,0.4) 100%); pointer-events: none; z-index: 1;"></div>
+
+        <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35;">
+            <source src="{% static 'main/video/hero.mp4' %}" type="video/mp4">
+        </video>
+
+        <!-- Контент слева внизу -->
+        <div style="position: relative; z-index: 2; max-width: 800px; padding: 0 4rem 0 8rem;">
+            <h1 style="font-size: clamp(4rem, 12vw, 10rem); font-weight: 800; color: #f5f5f5; line-height: 0.92; letter-spacing: -0.02em; margin-bottom: 2.5rem; font-family: 'Inter', sans-serif;">ANIMA<br>NOCTIS</h1>
+            <p style="font-size: 0.75rem; letter-spacing: 0.2em; color: #666; line-height: 2; margin-bottom: 3rem; font-family: 'Inter', sans-serif;">РОЖДЕНО В ТЕМНОТЕ.<br>СОЗДАНО ДЛЯ ТЕХ, КТО НЕ БОИТСЯ БЫТЬ СОБОЙ.</p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="{% url 'main:catalog_all' %}"
+                   hx-get="{% url 'main:catalog_all' %}"
+                   hx-target="#main-content"
+                   hx-push-url="true"
+                   style="display: inline-block; padding: 1rem 2rem; background-color: #f5f5f5; color: #0a0a0a; font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; font-weight: 600; text-decoration: none; transition: opacity 0.2s;"
+                   onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
+                    СМОТРЕТЬ КАТАЛОГ →
+                </a>
+                <a href="#"
+                   style="display: inline-block; padding: 1rem 2rem; border: 1px solid #2a2a2a; color: #666; font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; font-weight: 600; text-decoration: none; transition: all 0.2s;"
+                   onmouseover="this.style.borderColor='#555'; this.style.color='#999'" onmouseout="this.style.borderColor='#2a2a2a'; this.style.color='#666'">
+                    О БРЕНДЕ
+                </a>
+            </div>
+        </div>
+
     </section>
 
-    <!-- Бегущая строка -->
-    <div style="background-color: #0a0a0a; padding: 1rem 0; overflow: hidden; white-space: nowrap;">
-        <div style="display: inline-block; animation: marquee 20s linear infinite;">
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">ANIMA NOCTIS</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">LIMITED EDITION</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NEW DROP 2026</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NO RESTOCKS</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">ANIMA NOCTIS</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">LIMITED EDITION</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NEW DROP 2026</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NO RESTOCKS</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
+    <!-- MARQUEE -->
+    <div style="background-color: #0a0a0a; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; padding: 1.1rem 0; overflow: hidden; white-space: nowrap;">
+        <div style="display: inline-block; animation: marquee 25s linear infinite;">
+            <span style="color: #f5f5f5; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 3rem;">ANIMA NOCTIS</span>
+            <span style="color: #2a2a2a; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 1rem;">·</span>
+            <span style="color: #f5f5f5; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 3rem;">LIMITED EDITION</span>
+            <span style="color: #2a2a2a; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 1rem;">·</span>
+            <span style="color: #f5f5f5; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NEW DROP 2026</span>
+            <span style="color: #2a2a2a; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 1rem;">·</span>
+            <span style="color: #f5f5f5; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NO RESTOCKS</span>
+            <span style="color: #2a2a2a; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 1rem;">·</span>
+            <span style="color: #f5f5f5; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 3rem;">ANIMA NOCTIS</span>
+            <span style="color: #2a2a2a; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 1rem;">·</span>
+            <span style="color: #f5f5f5; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 3rem;">LIMITED EDITION</span>
+            <span style="color: #2a2a2a; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 1rem;">·</span>
+            <span style="color: #f5f5f5; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NEW DROP 2026</span>
+            <span style="color: #2a2a2a; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 1rem;">·</span>
+            <span style="color: #f5f5f5; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NO RESTOCKS</span>
+            <span style="color: #2a2a2a; font-size: 0.65rem; letter-spacing: 0.35em; font-family: 'Inter', sans-serif; padding: 0 1rem;">·</span>
         </div>
     </div>
 
+    <!-- NEW ARRIVALS -->
+    <section style="padding: 5rem 4rem; background-color: #f5f5f5;">
+        <div style="max-width: 1400px; margin: 0 auto;">
 
-    <section style="padding: 5rem 2rem; background-color: #f5f5f5;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;">
+            <!-- Шапка -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 2rem; border-bottom: 1px solid #e0e0e0; margin-bottom: 3rem;">
                 <div>
-                    <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">НОВИНКИ</p>
-                    <h2 style="font-size: 1.5rem; font-weight: 700; color: #0a0a0a; font-family: 'Inter', sans-serif; letter-spacing: -0.02em;">NEW ARRIVALS</h2>
+                    <p style="font-size: 0.65rem; letter-spacing: 0.35em; color: #999; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">НОВИНКИ</p>
+                    <h2 style="font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; color: #0a0a0a; font-family: 'Inter', sans-serif; letter-spacing: -0.02em; line-height: 1;">NEW ARRIVALS</h2>
                 </div>
+                <a href="{% url 'main:catalog_all' %}"
+                   hx-get="{% url 'main:catalog_all' %}"
+                   hx-target="#main-content"
+                   hx-push-url="true"
+                   style="font-size: 0.65rem; letter-spacing: 0.2em; color: #999; font-family: 'Inter', sans-serif; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#0a0a0a'" onmouseout="this.style.color='#999'">
+                    ВСЕ МОДЕЛИ →
+                </a>
             </div>
-            <div id="featured-scroll" style="display: flex; overflow-x: auto; gap: 1.5rem; padding-bottom: 1rem; scrollbar-width: none; -ms-overflow-style: none;">
-            <style>#featured-scroll::-webkit-scrollbar { display: none; }</style>
+
+            <!-- Сетка товаров -->
+            {% if featured_products %}
+            <div class="arrivals-grid">
                 {% for product in featured_products %}
                 <div class="product-featured-card"
                      hx-get="{% url 'main:product_detail' product.slug %}"
                      hx-target="#main-content"
                      hx-push-url="true"
-                     style="cursor: pointer; background-color: #fff; border: 1px solid #eee; min-width: 300px; flex-shrink: 0;">
-                    <div style="height: 380px; overflow: hidden; background-color: #f5f5f5;">
+                     style="cursor: pointer; background-color: #fff; border: 1px solid #e8e8e8; position: relative; transition: transform 0.3s ease;">
+
+                    <span style="position: absolute; top: 1rem; left: 1rem; z-index: 1; background-color: #0a0a0a; color: #f5f5f5; font-family: 'Inter', sans-serif; font-size: 0.55rem; letter-spacing: 0.2em; font-weight: 600; padding: 0.35rem 0.65rem;">НОВИНКА</span>
+
+                    <div style="height: 400px; overflow: hidden; background-color: #f0f0f0;">
                         {% if product.main_image %}
                         <img src="{{ product.main_image.url }}"
                              alt="{{ product.name }}"
-                             style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
+                             style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;">
                         {% else %}
                         <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                            <span style="color: #aaa; font-size: 0.75rem; font-family: 'Inter', sans-serif; letter-spacing: 0.1em;">NO IMAGE</span>
+                            <span style="color: #ccc; font-size: 0.7rem; font-family: 'Inter', sans-serif; letter-spacing: 0.15em;">NO IMAGE</span>
                         </div>
                         {% endif %}
                     </div>
+
                     <div style="padding: 1.25rem; display: flex; justify-content: space-between; align-items: flex-end;">
                         <div>
-                            <p style="font-size: 0.72rem; letter-spacing: 0.12em; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 0.25rem;">{{ product.name|upper }}</p>
-                            <p style="font-size: 0.65rem; letter-spacing: 0.15em; color: #aaa; font-family: 'Inter', sans-serif; margin-bottom: 0.5rem;">{{ product.category.name|upper }}</p>
-                            <p style="font-size: 0.8rem; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 500;">${{ product.price }}</p>
+                            <p style="font-size: 0.65rem; letter-spacing: 0.15em; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 0.3rem;">{{ product.name|upper }}</p>
+                            <p style="font-size: 0.6rem; letter-spacing: 0.15em; color: #aaa; font-family: 'Inter', sans-serif; margin-bottom: 0.5rem;">{{ product.category.name|upper }}</p>
+                            <p style="font-size: 0.75rem; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 500;">{{ product.price|format_price }}</p>
+                        </div>
+                        <div style="width: 36px; height: 36px; background-color: #0a0a0a; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <span style="color: #f5f5f5; font-size: 0.9rem; line-height: 1;">→</span>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
+            {% else %}
+            <div style="text-align: center; padding: 5rem 0;">
+                <p style="font-size: 0.7rem; letter-spacing: 0.25em; color: #bbb; font-family: 'Inter', sans-serif;">ТОВАРЫ ПОЯВЯТСЯ СКОРО</p>
+            </div>
+            {% endif %}
+
         </div>
     </section>
+
 </main>
 
 <style>
 @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
+}
+
+.arrivals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.product-featured-card:hover {
+    transform: translateY(-4px);
+}
+
+.product-featured-card:hover img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    section[style*="padding: 5rem 4rem"] {
+        padding: 3rem 1.5rem !important;
+    }
+    .arrivals-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .product-featured-card img,
+    .product-featured-card > div:first-of-type {
+        height: 260px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .arrivals-grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>

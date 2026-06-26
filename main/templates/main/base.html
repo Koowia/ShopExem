@@ -261,152 +261,68 @@
     <!-- Main Content -->
     <div id="main-content" style="flex: 1; padding-top: 0;">
         {% block content %}
-        {% if show_catalog_index %}
-            {% include 'main/catalog_index.html' %}
-        {% endif %}
-        <main style="background-color: #f5f5f5;">
-    <section style="min-height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 4rem 2rem; background-color: #f5f5f5;">
-        <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 2rem; font-family: 'Inter', sans-serif;">NEW COLLECTION — 2026</p>
-        <h1 style="font-size: clamp(3rem, 10vw, 8rem); font-weight: 700; letter-spacing: -0.02em; color: #0a0a0a; line-height: 1; margin-bottom: 1.5rem; font-family: 'Inter', sans-serif;">ANIMA<br>NOCTIS</h1>
-        <p style="font-size: 0.85rem; letter-spacing: 0.15em; color: #666; margin-bottom: 3rem; font-family: 'Inter', sans-serif; max-width: 400px;">ОДЕЖДА ДЛЯ ТЕХ, КТО СУЩЕСТВУЕТ ВНЕ ВРЕМЕНИ</p>
-    </section>
-
-    <!-- Бегущая строка -->
-    <div style="background-color: #0a0a0a; padding: 0.6rem 0; overflow: hidden; white-space: nowrap; position: relative; z-index: 10;">
-        <div style="display: inline-block; animation: marquee 20s linear infinite;">
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">ANIMA NOCTIS</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">LIMITED EDITION</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NEW DROP 2026</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NO RESTOCKS</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">ANIMA NOCTIS</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">LIMITED EDITION</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NEW DROP 2026</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-            <span style="color: #f5f5f5; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">NO RESTOCKS</span>
-            <span style="color: #555; font-size: 0.7rem; letter-spacing: 0.3em; font-family: 'Inter', sans-serif; padding: 0 3rem;">·</span>
-        </div>
-    </div>
-
-
-    <section style="padding: 5rem 2rem; background-color: #f5f5f5;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;">
-                <div>
-                    <p style="font-size: 0.7rem; letter-spacing: 0.3em; color: #999; margin-bottom: 0.5rem; font-family: 'Inter', sans-serif;">НОВИНКИ</p>
-                    <h2 style="font-size: 1.5rem; font-weight: 700; color: #0a0a0a; font-family: 'Inter', sans-serif; letter-spacing: -0.02em;">NEW ARRIVALS</h2>
-                </div>
-            </div>
-            <div id="featured-scroll" style="display: flex; overflow-x: auto; gap: 1.5rem; padding-bottom: 1rem; scrollbar-width: none; -ms-overflow-style: none;">
-            <style>#featured-scroll::-webkit-scrollbar { display: none; }</style>
-                {% for product in featured_products %}
-                <div class="product-featured-card"
-                     hx-get="{% url 'main:product_detail' product.slug %}"
-                     hx-target="#main-content"
-                     hx-push-url="true"
-                     style="cursor: pointer; background-color: #fff; border: 1px solid #eee; min-width: 300px; flex-shrink: 0;">
-                    <div style="height: 380px; overflow: hidden; background-color: #f5f5f5;">
-                        {% if product.main_image %}
-                        <img src="{{ product.main_image.url }}"
-                             alt="{{ product.name }}"
-                             style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;">
-                        {% else %}
-                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
-                            <span style="color: #aaa; font-size: 0.75rem; font-family: 'Inter', sans-serif; letter-spacing: 0.1em;">NO IMAGE</span>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div style="padding: 1.25rem; display: flex; justify-content: space-between; align-items: flex-end;">
-                        <div>
-                            <p style="font-size: 0.72rem; letter-spacing: 0.12em; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 600; margin-bottom: 0.25rem;">{{ product.name|upper }}</p>
-                            <p style="font-size: 0.65rem; letter-spacing: 0.15em; color: #aaa; font-family: 'Inter', sans-serif; margin-bottom: 0.5rem;">{{ product.category.name|upper }}</p>
-                            <p style="font-size: 0.8rem; color: #0a0a0a; font-family: 'Inter', sans-serif; font-weight: 500;">${{ product.price }}</p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-</main>
-
-<style>
-@keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-</style>
+        {% include 'main/home_content.html' %}
         {% endblock %}
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #0a0a0a; border-top: 1px solid #1a1a1a;">
+<footer style="background-color: #0a0a0a; border-top: 1px solid #1a1a1a;">
 
-    <!-- Верхняя большая строка -->
     <div style="padding: 4rem 4rem 0; border-bottom: 1px solid #1a1a1a;">
-        <p style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(3rem, 6vw, 6rem); font-weight: 300; color: #f5f5f5; letter-spacing: 0.5em; line-height: 1; text-align: center; padding: 1rem 0;">A N I M A &nbsp; N O C T I S</p>
+        <p style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(1.8rem, 4.5vw, 5rem); font-weight: 300; color: #f5f5f5; letter-spacing: 0.3em; line-height: 1; text-align: center; padding: 1rem 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">ANIMA NOCTIS</p>
     </div>
 
-    <!-- Основная сетка -->
     <div style="padding: 4rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem; border-bottom: 1px solid #1a1a1a;">
 
-        <!-- Правовая информация — слева -->
-        <div>
-            <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; color: #f5f5f5; letter-spacing: 0.3em; font-weight: 700; margin-bottom: 2rem;">ПРАВОВАЯ ИНФОРМАЦИЯ</h3>
+        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+            <h3 style="font-family: 'Inter', sans-serif; font-size: 1.1rem; color: #f5f5f5; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 2rem;">ПРАВОВАЯ ИНФОРМАЦИЯ</h3>
             <nav style="display: flex; flex-direction: column; gap: 1.1rem;">
                 <a href="#"
-                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s;"
-                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#444'">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+                   style="color: #888; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.05em; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#888'">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
                 <a href="#"
-                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s;"
-                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#444'">ПУБЛИЧНАЯ ОФЕРТА</a>
+                   style="color: #888; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.05em; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#888'">ПУБЛИЧНАЯ ОФЕРТА</a>
             </nav>
         </div>
 
-        <!-- Навигация — по центру -->
-        <div style="display: flex; flex-direction: column; align-items: center;">
-            <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; color: #f5f5f5; letter-spacing: 0.3em; font-weight: 700; margin-bottom: 2rem;">НАВИГАЦИЯ</h3>
-            <nav style="display: flex; flex-direction: column; gap: 1.1rem; align-items: center;">
+        <div style="display: flex; flex-direction: column; align-items: flex-start; justify-self: center;">
+            <h3 style="font-family: 'Inter', sans-serif; font-size: 1.1rem; color: #f5f5f5; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 2rem;">НАВИГАЦИЯ</h3>
+            <nav style="display: flex; flex-direction: column; gap: 1.1rem;">
                 <a href="{% url 'main:index' %}"
                    hx-get="{% url 'main:index' %}"
                    hx-target="#main-content"
                    hx-push-url="true"
-                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s;"
-                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#444'">ГЛАВНАЯ</a>
+                   style="color: #888; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.05em; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#888'">ГЛАВНАЯ</a>
                 <a href="{% url 'main:catalog_all' %}"
                    hx-get="{% url 'main:catalog_all' %}"
                    hx-target="#main-content"
                    hx-push-url="true"
-                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s;"
-                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#444'">КАТАЛОГ</a>
+                   style="color: #888; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.05em; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#888'">КАТАЛОГ</a>
                 <a href="#"
-                   style="color: #222; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; cursor: default;">О БРЕНДЕ — СКОРО</a>
+                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.05em; text-decoration: none; cursor: default;">О БРЕНДЕ — СКОРО</a>
                 <a href="{% url 'users:profile' %}"
                    hx-get="{% url 'users:profile' %}"
                    hx-target="#main-content"
                    hx-push-url="true"
-                   style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s;"
-                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#444'">АККАУНТ</a>
+                   style="color: #888; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.05em; text-decoration: none; transition: color 0.2s;"
+                   onmouseover="this.style.color='#f5f5f5'" onmouseout="this.style.color='#888'">АККАУНТ</a>
             </nav>
         </div>
 
-        <!-- Служба поддержки — справа -->
         <div style="display: flex; flex-direction: column; align-items: flex-end;">
             <div style="display: flex; flex-direction: column; align-items: center;">
-                <h3 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 0.9rem; color: #f5f5f5; letter-spacing: 0.3em; font-weight: 700; margin-bottom: 2rem;">СЛУЖБА ПОДДЕРЖКИ</h3>
+                <h3 style="font-family: 'Inter', sans-serif; font-size: 1.1rem; color: #f5f5f5; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 2rem;">СЛУЖБА ПОДДЕРЖКИ</h3>
                 <div style="display: flex; flex-direction: column; gap: 1.1rem; align-items: center;">
-                    <p style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.05em; line-height: 1.8; text-align: center;">
+                    <p style="color: #888; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.05em; line-height: 1.8; text-align: center;">
                         Есть вопросы?<br>Мы всегда на связи.
                     </p>
                     <a href="mailto:support@kwdev.ru"
-                       style="color: #444; font-family: 'Inter', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; text-decoration: none; transition: color 0.2s; border-bottom: 1px solid #222; padding-bottom: 0.25rem; display: inline-block;"
+                       style="color: #888; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.05em; text-decoration: none; transition: color 0.2s; border-bottom: 1px solid #555; padding-bottom: 0.25rem; display: inline-block;"
                        onmouseover="this.style.color='#f5f5f5'; this.style.borderColor='#f5f5f5'"
-                       onmouseout="this.style.color='#444'; this.style.borderColor='#222'">
+                       onmouseout="this.style.color='#888'; this.style.borderColor='#555'">
                         НАПИСАТЬ НАМ →
                     </a>
                 </div>
@@ -414,13 +330,9 @@
         </div>
     </div>
 
-    <!-- Нижняя строка -->
     <div style="padding: 1.5rem 4rem; display: flex; justify-content: space-between; align-items: center;">
-        <p style="color: #222; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em;">
+        <p style="color: #555; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em;">
             &copy; {% now "Y" %} ANIMA NOCTIS. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
-        </p>
-        <p style="color: #222; font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 0.15em;">
-            ANIMA NOCTIS™
         </p>
     </div>
 </footer>
