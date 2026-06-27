@@ -1,13 +1,12 @@
-<div class="border-t border-gray-200 pt-4">
-    <div class="flex justify-between text-sm font-medium mb-4">
-        <span>SUBTOTAL:</span>
-        <span>${{ cart.subtotal|floatformat:2 }}</span>
-    </div>
-    <a href="{% url 'orders:checkout' %}" 
-       hx-get="{% url 'orders:checkout' %}" 
-       hx-target="#main-content" 
-       hx-push-url="true"
-       class="w-full block bg-black text-white py-3 px-6 text-sm font-medium text-center uppercase hover:bg-gray-800 transition-colors">
-        Checkout
-    </a>
-</div>  
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid #f0f0f0;">
+    <span style="font-size: 0.65rem; letter-spacing: 0.2em; color: #999; font-family: 'Inter', sans-serif;">ИТОГО</span>
+    {% load main_tags %}<span style="font-size: 1rem; color: #0a0a0a; font-weight: 500; font-family: 'Inter', sans-serif;">{{ cart.subtotal|format_price }}</span>
+</div>
+<a href="{% url 'orders:checkout' %}"
+   hx-get="{% url 'orders:checkout' %}"
+   hx-target="#main-content"
+   hx-push-url="true"
+   style="display: block; width: 100%; background: #0a0a0a; color: #f5f5f5; font-size: 0.65rem; letter-spacing: 0.25em; font-weight: 600; padding: 1rem; text-align: center; text-decoration: none; font-family: 'Inter', sans-serif; transition: background 0.2s;"
+   onmouseover="this.style.background='#222'" onmouseout="this.style.background='#0a0a0a'">
+    ОФОРМИТЬ ЗАКАЗ →
+</a>

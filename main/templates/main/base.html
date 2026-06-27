@@ -191,7 +191,7 @@
 
     <!-- Header -->
     <header style="position: sticky; top: 0; z-index: 50; background-color: #0a0a0a; border-bottom: 1px solid #1a1a1a;">
-        <div style="max-width: 1600px; margin: 0 auto; padding: 0;">
+        <div style="width: 100%; padding: 0;">
             <div style="display: flex; align-items: center; height: 72px; gap: 1.5rem; padding: 0 1.5rem 0 1rem;">
 
                 <!-- Mobile Menu Button -->
@@ -210,7 +210,7 @@
                     <img src="{% static 'main/img/logo.png' %}"
                          alt="ANIMA NOCTIS"
                          style="height: 36px; width: auto; filter: invert(1); opacity: 0.9;">
-                    <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1rem; letter-spacing: 0.2em; color: #f5f5f5; font-weight: 400; white-space: nowrap;">ANIMA NOCTIS</span>
+                    <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 1.4rem; letter-spacing: 0.3em; color: #f5f5f5; font-weight: 300; white-space: nowrap;">ANIMA NOCTIS</span>
                 </a>
 
                 <!-- Search -->
@@ -393,7 +393,31 @@
             updateCartCount();
             
             function updateHeaderCartCount(count) {
-                document.getElementById('cart-count').textContent = count;
+                const cartCountEl = document.getElementById('cart-count');
+                const mobileCartHeader = document.getElementById('mobileCartHeader');
+
+                if (count > 0) {
+                    if (cartCountEl) {
+                        cartCountEl.textContent = count;
+                        cartCountEl.style.display = 'flex';
+                    } else {
+                        // Создаём бейдж если его нет
+                        const cartIcon = document.getElementById('desktopCart');
+                        if (cartIcon) {
+                            const badge = document.createElement('span');
+                            badge.id = 'cart-count';
+                            badge.textContent = count;
+                            badge.style.cssText = 'position: absolute; top: -6px; right: -8px; background: #e63535; color: #fff; font-size: 10px; font-weight: 700; font-family: Inter, sans-serif; min-width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 0 3px; line-height: 1;';
+                            cartIcon.appendChild(badge);
+                        }
+                    }
+                } else {
+                    if (cartCountEl) {
+                        cartCountEl.style.display = 'none';
+                        cartCountEl.textContent = '0';
+                    }
+                }
+
                 if (mobileCartHeader) mobileCartHeader.textContent = `CART (${count})`;
             }
             

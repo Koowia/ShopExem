@@ -1,61 +1,63 @@
-<div class="cart-item pb-8 border-b border-gray-200" id="cart-item-{{ item.id }}">
-    <!-- Product Image and Details -->
-    <div class="flex flex-col items-center">
-        <div class="w-40 h-40 mb-4 flex items-center justify-center bg-gray-100">
-            {% if item.product.main_image %}
-                <img src="{{ item.product.main_image.url }}" 
-                     alt="{{ item.product.name }}" 
-                     class="max-h-full max-w-full object-contain">
-            {% else %}
-                <div class="w-full h-full flex items-center justify-center">
-                    <span class="text-gray-400">No Image</span>
-                </div>
-            {% endif %}
-        </div>
-        
-        <!-- Product Info -->
-        <div class="text-center">
-            <h3 class="font-bold text-sm">{{ item.product.name|upper }}</h3>
-            <p class="text-xs">COLOR {{ item.product.color|upper }}</p>
-            <p class="text-xs">SIZE {{ item.product_size.size.name }}</p>
-            <p class="font-bold mt-1">${{ item.product.price }}</p>
-            
-            <!-- Quantity Controls -->
-            <div class="flex items-center justify-center mt-2">
-                <button class="w-6 h-6 flex items-center justify-center border border-gray-300 hover:bg-gray-100"
-                        hx-post="{% url 'cart:update_item' item.id %}"
-                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                        hx-vals='{"quantity": "{{ item.quantity|add:-1 }}"}'
-                        hx-target="#cart-modal"
-                        hx-swap="outerHTML"
-                        hx-trigger="click"
-                        hx-on::after-request="console.log('Update Quantity (-1) Request Completed for Item {{ item.id }}');"
-                        {% if item.quantity <= 1 %}disabled class="opacity-50 cursor-not-allowed"{% endif %}>
-                    −
-                </button>
-                <span class="mx-3 w-8 text-center">{{ item.quantity }}</span>
-                <button class="w-6 h-6 flex items-center justify-center border border-gray-300 hover:bg-gray-100"
-                        hx-post="{% url 'cart:update_item' item.id %}"
-                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                        hx-vals='{"quantity": "{{ item.quantity|add:1 }}"}'
-                        hx-target="#cart-modal"
-                        hx-swap="outerHTML"
-                        hx-trigger="click"
-                        hx-on::after-request="console.log('Update Quantity (+1) Request Completed for Item {{ item.id }}');">
-                    +
-                </button>
+<div class="cart-item" id="cart-item-{{ item.id }}" style="padding: 1.25rem 0; border-bottom: 1px solid #f0f0f0; display: grid; grid-template-columns: 90px 1fr; gap: 1rem;">
+
+    <!-- Фото -->
+    <div style="width: 90px; height: 110px; background: #f5f5f5; overflow: hidden; flex-shrink: 0;">
+        {% if item.product.main_image %}
+            <img src="{{ item.product.main_image.url }}"
+                 alt="{{ item.product.name }}"
+                 style="width: 100%; height: 100%; object-fit: cover;">
+        {% else %}
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+                <span style="font-size:0.6rem;color:#ccc;letter-spacing:0.1em;">НЕТ ФОТО</span>
             </div>
-            
-            <!-- Remove button -->
-            <button class="mt-2 text-xs text-gray-500 underline hover:text-gray-700"
+        {% endif %}
+    </div>
+
+    <!-- Инфо -->
+    <div style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.4rem;">
+                <p style="font-size: 0.7rem; letter-spacing: 0.12em; color: #0a0a0a; font-weight: 600; font-family: 'Inter', sans-serif;">{{ item.product.name|upper }}</p>
+                <button style="font-size: 0.55rem; letter-spacing: 0.15em; color: #aaa; background: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; padding: 0;"
                     hx-post="{% url 'cart:remove_item' item.id %}"
                     hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                     hx-target="#cart-modal"
                     hx-swap="outerHTML"
                     hx-trigger="click"
-                    hx-on::after-request="console.log('Remove Item {{ item.id }} Request Completed');">
-                Remove
-            </button>
+                    onmouseover="this.style.color='#0a0a0a'" onmouseout="this.style.color='#aaa'">
+                    УДАЛИТЬ
+                </button>
+            </div>
+            <p style="font-size: 0.6rem; letter-spacing: 0.1em; color: #999; font-family: 'Inter', sans-serif; margin-bottom: 0.2rem;">ЦВЕТ: {{ item.product.color|upper }}</p>
+            <p style="font-size: 0.6rem; letter-spacing: 0.1em; color: #999; font-family: 'Inter', sans-serif; margin-bottom: 0.75rem;">РАЗМЕР: {{ item.product_size.size.name }}</p>
+        </div>
+
+        <!-- Счётчик + цена -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <button style="width: 22px; height: 22px; border: 1px solid #e0e0e0; background: transparent; color: #0a0a0a; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif;"
+                    hx-post="{% url 'cart:update_item' item.id %}"
+                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                    hx-vals='{"quantity": "{{ item.quantity|add:-1 }}"}'
+                    hx-target="#cart-modal"
+                    hx-swap="outerHTML"
+                    hx-trigger="click"
+                    {% if item.quantity <= 1 %}disabled style="width: 22px; height: 22px; border: 1px solid #e0e0e0; background: transparent; color: #ccc; font-size: 14px; cursor: not-allowed; display: flex; align-items: center; justify-content: center;"{% endif %}>
+                    −
+                </button>
+                <span style="font-size: 0.7rem; color: #0a0a0a; min-width: 20px; text-align: center; font-family: 'Inter', sans-serif;">{{ item.quantity }}</span>
+                <button style="width: 22px; height: 22px; border: 1px solid #e0e0e0; background: transparent; color: #0a0a0a; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif;"
+                    hx-post="{% url 'cart:update_item' item.id %}"
+                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                    hx-vals='{"quantity": "{{ item.quantity|add:1 }}"}'
+                    hx-target="#cart-modal"
+                    hx-swap="outerHTML"
+                    hx-trigger="click">
+                    +
+                </button>
+            </div>
+            {% load main_tags %}
+            <p style="font-size: 0.8rem; color: #0a0a0a; font-weight: 500; font-family: 'Inter', sans-serif;">{{ item.product.price|format_price }}</p>
         </div>
     </div>
 </div>

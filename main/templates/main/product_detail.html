@@ -6,7 +6,7 @@
                hx-get="{% url 'main:index' %}" 
                hx-target="#main-content" 
                hx-push-url="true"
-               class="hover:text-gray-900">HOME</a>
+               class="hover:text-gray-900">ГЛАВНАЯ</a>
             <span class="mx-2">/</span>
             <a href="{% url 'main:catalog' product.category.slug %}" 
                hx-get="{% url 'main:catalog' product.category.slug %}" 
@@ -29,7 +29,7 @@
                          class="w-full h-full object-cover">
                 {% else %}
                     <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                        <span class="text-gray-400">No Image</span>
+                        <span class="text-gray-400">НЕТ ФОТО</span>
                     </div>
                 {% endif %}
             </div>
@@ -56,13 +56,13 @@
                     {{ product.name|upper }}
                 </h1>
                 <p class="text-lg text-gray-600 mb-4">{{ product.color|upper }}</p>
-                <p class="text-2xl font-bold text-gray-900">${{ product.price }}</p>
+                {% load main_tags %}<p class="text-2xl font-bold text-gray-900">{{ product.price|format_price }}</p>
             </div>
 
             <!-- Sizes -->
             {% if product.product_sizes.all %}
             <div>
-                <h3 class="text-sm font-medium text-gray-900 mb-3">SIZE</h3>
+                <h3 class="text-sm font-medium text-gray-900 mb-3">РАЗМЕР</h3>
                 <div class="grid grid-cols-4 gap-2">
                     {% for product_size in product.product_sizes.all %}
                     <div class="size-option">
@@ -84,8 +84,8 @@
             </div>
             {% else %}
             <div>
-                <h3 class="text-sm font-medium text-gray-900 mb-3">SIZE</h3>
-                <p class="text-sm text-gray-600">No sizes available</p>
+                <h3 class="text-sm font-medium text-gray-900 mb-3">РАЗМЕР</h3>
+                <p class="text-sm text-gray-600">Размеры недоступны</p>
             </div>
             {% endif %}
 
@@ -95,30 +95,19 @@
                         class="w-full bg-black text-white py-3 px-6 text-sm font-medium hover:bg-gray-800 transition-colors"
                         onclick="addToCart()"
                         {% if not product.product_sizes.all %}disabled{% endif %}>
-                    ADD TO CART
+                    ДОБАВИТЬ В КОРЗИНУ
                 </button>
                 
                 <button class="w-full border border-gray-300 py-3 px-6 text-sm font-medium hover:border-gray-900 transition-colors">
-                    ADD TO WISHLIST
+                    ДОБАВИТЬ В ИЗБРАННОЕ
                 </button>
             </div>
 
             <!-- Product Details -->
             <div class="border-t border-gray-200 pt-6">
-                <h3 class="text-sm font-medium text-gray-900 mb-3">DETAILS</h3>
+                <h3 class="text-sm font-medium text-gray-900 mb-3">ОПИСАНИЕ</h3>
                 <div class="prose prose-sm text-gray-600">
                     <p>{{ product.description|linebreaks }}</p>
-                    <p>Created: {{ product.created_at|date:"F d, Y" }}</p>
-                </div>
-            </div>
-
-            <!-- Care Instructions -->
-            <div class="border-t border-gray-200 pt-6">
-                <h3 class="text-sm font-medium text-gray-900 mb-3">CARE</h3>
-                <div class="prose prose-sm text-gray-600">
-                    <p>Professional dry clean only</p>
-                    <p>Do not bleach</p>
-                    <p>Iron at low temperature</p>
                 </div>
             </div>
         </div>
@@ -127,7 +116,7 @@
     <!-- Related Products -->
     {% if related_products %}
     <div class="mt-16 border-t border-gray-200 pt-16">
-        <h2 class="text-xl font-bold tracking-tight text-gray-900 mb-8">YOU MAY ALSO LIKE</h2>
+        <h2 class="text-xl font-bold tracking-tight text-gray-900 mb-8">ВАМ МОЖЕТ ПОНРАВИТЬСЯ</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {% for related_product in related_products %}
             <div class="product-card group cursor-pointer" 
@@ -148,7 +137,7 @@
                 <div class="text-center">
                     <h3 class="text-sm font-medium text-gray-900 mb-1">{{ related_product.name|upper }}</h3>
                     <p class="text-sm text-gray-600 mb-1">{{ related_product.color|upper }}</p>
-                    <p class="text-sm font-medium">${{ related_product.price }}</p>
+                    <p class="text-sm font-medium">{{ related_product.price|format_price }}</p>
                 </div>
             </div>
             {% endfor %}
@@ -223,20 +212,20 @@
         })
         .then(data => {
             console.log('Response Data:', data);
-            if (data.error) {
-                showNotification(data.error);
-            } else {
+            if (data.success || data.total_items !== undefined) {
                 updateHeaderCartCount(data.total_items);
-                showNotification(data.message);
+                showNotification('Товар добавлен в корзину');
                 htmx.ajax('GET', '{% url "cart:cart_modal" %}', {
                     target: '#cart-container',
                     swap: 'innerHTML'
                 });
+            } else {
+                showNotification(data.error || 'Ошибка добавления');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            showNotification('Error adding to cart');
+            showNotification('Ошибка соединения');
         });
     }
     
